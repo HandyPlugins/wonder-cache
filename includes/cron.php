@@ -29,7 +29,7 @@ function schedule_events() {
 	$timestamp = wp_next_scheduled( 'wonder_cache_purge_cache' );
 
 	if ( ! $timestamp ) {
-		wp_schedule_event( time(), 'wondercache', 'wonder_cache_purge_cache' );
+		wp_schedule_event( time(), 'hourly', 'wonder_cache_purge_cache' );
 	}
 }
 
