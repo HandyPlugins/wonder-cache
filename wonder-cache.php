@@ -9,7 +9,6 @@
  * Text Domain:     wonder-cache
  * Domain Path:     /languages
  * Version:         0.1.0
- * Requires PHP:    5.6
  * Network:         true
  *
  * @package         WonderCache
