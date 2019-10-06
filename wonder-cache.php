@@ -8,7 +8,7 @@
  * Author URI:      https://uysalmustafa.com
  * Text Domain:     wonder-cache
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.2.0
  * Network:         true
  *
  * @package         WonderCache

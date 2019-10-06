@@ -4,7 +4,7 @@ Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 5.2.3
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,10 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.2.0 (Oct 6, 2019) =
+- clean-up cache directory on deactivation
+- admin bar button added for flushing cache
 
 = 0.1.0 =
 - Initial release
