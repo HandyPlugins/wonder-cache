@@ -117,3 +117,40 @@ function toggle_caching( $status ) {
 
 	return true;
 }
+
+/**
+ * Removes given directory
+ *
+ * @param       $path
+ * @param array $exclude
+ *
+ * @since 0.2.0
+ */
+function remove_directory( $path, $exclude = array() ) {
+	$dir = @opendir( $path );
+
+	if ( $dir ) {
+		while ( ( $entry = @readdir( $dir ) ) !== false ) {
+			if ( $entry == '.' || $entry == '..' ) {
+				continue;
+			}
+
+			foreach ( $exclude as $mask ) {
+				if ( fnmatch( $mask, basename( $entry ) ) ) {
+					continue 2;
+				}
+			}
+
+			$full_path = $path . DIRECTORY_SEPARATOR . $entry;
+
+			if ( @is_dir( $full_path ) ) {
+				\WonderCache\Utils\remove_directory( $full_path, $exclude );
+			} else {
+				@unlink( $full_path );
+			}
+		}
+
+		@closedir( $dir );
+		@rmdir( $path );
+	}
+}

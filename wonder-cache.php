@@ -85,6 +85,7 @@ function activate() {
 
 function deactivate() {
 	\WonderCache\Utils\toggle_caching( false );
+	\WonderCache\Utils\remove_directory( WONDER_CACHE_CACHING_DIR );
 	\WonderCache\Utils\remove_advanced_cache_file();
 	wp_clear_scheduled_hook( 'wonder_cache_purge_cache' );
 }
