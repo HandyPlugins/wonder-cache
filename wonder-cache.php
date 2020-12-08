@@ -2,10 +2,10 @@
 
 /**
  * Plugin Name:     Wonder Cache
- * Plugin URI:      https://github.com/mustafauysal/wonder-cache
+ * Plugin URI:      https://handyplugins.co/wonder-cache/
  * Description:     A simple yet powerful caching plugin. It powers and abilities include: superhuman strength and durability.
- * Author:          Mustafa Uysal
- * Author URI:      https://uysalmustafa.com
+ * Author:          HandyPlugins
+ * Author URI:      https://handyplugins.co
  * Text Domain:     wonder-cache
  * Domain Path:     /languages
  * Version:         0.2.0
