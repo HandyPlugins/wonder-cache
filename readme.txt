@@ -3,8 +3,8 @@ Contributors: m_uysl, handyplugins
 Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 5.2.3
-Stable tag: 0.2.0
+Tested up to: 5.6
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ Once they have logged in or left a comment they will always get fresh pages.
 
 = Contributing & Bug Report =
 
-Bug reports and pull requests are welcome on [Github](https://github.com/mustafauysal/wonder-cache).
+Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/wonder-cache).
 
 == Installation ==
 
@@ -76,6 +76,10 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.2.1 (Dec 8, 2020) =
+- update author info
+- tested with WP 5.6
 
 = 0.2.0 (Oct 6, 2019) =
 - clean-up cache directory on deactivation

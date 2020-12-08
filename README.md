@@ -4,7 +4,7 @@ Wonder Cache
 A simple yet powerful caching plugin. It powers and abilities include: superhuman strength and durability.
 
 ## Contributing & Bug Report  
-Bug reports and pull requests are welcome on [Github](https://github.com/mustafauysal/wonder-cache).
+Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/wonder-cache).
 
 ## Setup  
 
