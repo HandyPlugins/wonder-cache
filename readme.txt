@@ -3,8 +3,8 @@ Contributors: m_uysl, handyplugins
 Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 5.6
-Stable tag: 0.2.1
+Tested up to: 5.8
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,11 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.3 (Sep 2, 2021) =
+- Updated & improved coding standards
+- Tested with WP 5.8
+- Added composer support
 
 = 0.2.1 (Dec 8, 2020) =
 - update author info
