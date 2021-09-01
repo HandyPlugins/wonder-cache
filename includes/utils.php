@@ -1,10 +1,27 @@
 <?php
+/**
+ * Utils
+ *
+ * @package WonderCache
+ */
 
 namespace WonderCache\Utils;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
+//phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged
+//phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+//phpcs:disable WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+/**
+ * Get the list of expired files
+ *
+ * @param string $path     The directory
+ * @param int    $lifespan TTL of the cache file
+ *
+ * @return array The list of expired files
+ */
 function get_exprired_files( $path, $lifespan = 0 ) {
 
 	$current_time = time();
@@ -24,24 +41,26 @@ function get_exprired_files( $path, $lifespan = 0 ) {
 			continue;
 		}
 
-
 		$path = $file->getPathname();
 
 		if ( @filemtime( $path ) + $lifespan <= $current_time ) {
 			$expired_files[] = $path;
 		}
-
 	}
 
 	return $expired_files;
 }
 
-
+/**
+ * Generate advanced-cache dropin.
+ *
+ * @return bool
+ */
 function generate_advanced_cache_file() {
 	$dropin_path = plugin_dir_path( WONDER_CACHE_PLUGIN_FILE ) . 'dropins/advanced-cache.php';
 	$file_path   = untrailingslashit( WP_CONTENT_DIR ) . '/advanced-cache.php';
 
-	$content = '<?php ' . PHP_EOL;
+	$content = '<?php ' . PHP_EOL; // phpcs:ignore Generic.Formatting.MultipleStatementAlignment.NotSameWarning
 	$content .= "defined( 'ABSPATH' ) || exit;" . PHP_EOL;
 	$content .= 'if ( @file_exists( \'' . $dropin_path . '\' ) ) {' . PHP_EOL;
 	$content .= "\t" . 'include_once( \'' . $dropin_path . '\');' . PHP_EOL;
@@ -50,6 +69,11 @@ function generate_advanced_cache_file() {
 	return (bool) file_put_contents( $file_path, $content );
 }
 
+/**
+ * Remove advanced-cache.php dropin
+ *
+ * @return bool
+ */
 function remove_advanced_cache_file() {
 	$file_path = untrailingslashit( WP_CONTENT_DIR ) . '/advanced-cache.php';
 
@@ -121,8 +145,8 @@ function toggle_caching( $status ) {
 /**
  * Removes given directory
  *
- * @param       $path
- * @param array $exclude
+ * @param string $path    Target directory for removal.
+ * @param array  $exclude Excluded files
  *
  * @since 0.2.0
  */
@@ -130,8 +154,8 @@ function remove_directory( $path, $exclude = array() ) {
 	$dir = @opendir( $path );
 
 	if ( $dir ) {
-		while ( ( $entry = @readdir( $dir ) ) !== false ) {
-			if ( $entry == '.' || $entry == '..' ) {
+		while ( ( $entry = @readdir( $dir ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
+			if ( '.' === $entry || '..' === $entry ) {
 				continue;
 			}
 
