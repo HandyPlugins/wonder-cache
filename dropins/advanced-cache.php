@@ -57,6 +57,7 @@ class wondercache {
 	public $cancel = false; // Change this to cancel the output buffer. Use wondercache_cancel();
 
 	public $noskip_cookies = array( 'wordpress_test_cookie' ); // Names of cookies - if they exist and the cache would normally be bypassed, don't bypass it
+	public $cacheable_origin_hostnames = array(); // A whitelist of HTTP origin `<host>:<port>` (or just `<host>`) names that are allowed as cache variations.
 
 	public $query = '';
 	public $genlock = false;
@@ -70,6 +71,23 @@ class wondercache {
 		}
 	}
 
+	function is_cacheable_origin( $origin ) {
+		$parsed_origin = parse_url( $origin );
+
+		if ( false === $parsed_origin ) {
+			return false;
+		}
+
+		$origin_host   = ! empty( $parsed_origin['host'] ) ? strtolower( $parsed_origin['host'] ) : null;
+		$origin_scheme = ! empty( $parsed_origin['scheme'] ) ? strtolower( $parsed_origin['scheme'] ) : null;
+		$origin_port   = ! empty( $parsed_origin['port'] ) ? $parsed_origin['port'] : null;
+
+		return $origin
+		       && $origin_host
+		       && ( 'http' === $origin_scheme || 'https' === $origin_scheme )
+		       && ( null === $origin_port || 80 === $origin_port || 443 === $origin_port )
+		       && in_array( $origin_host, $this->cacheable_origin_hostnames, true );
+	}
 
 	function status_header( $status_header, $status_code ) {
 		$this->status_header = $status_header;
@@ -342,6 +360,17 @@ if ( ! empty( $_SERVER['HTTP_X_WP_NONCE'] ) ) {
 	return;
 }
 
+// Never wondercache a response for a request with an Origin request header.
+// *Unless* that Origin header is in the configured whitelist of allowed origins with restricted schemes and ports.
+if ( isset( $_SERVER['HTTP_ORIGIN'] ) ) {
+	if ( ! $wondercache->is_cacheable_origin( $_SERVER['HTTP_ORIGIN'] ) ) {
+		return;
+	}
+
+	$wondercache->origin = $_SERVER['HTTP_ORIGIN'];
+}
+
+
 // Never cache when cookies indicate a cache-exempt visitor.
 if ( is_array( $_COOKIE ) && ! empty( $_COOKIE ) ) {
 	foreach ( array_keys( $_COOKIE ) as $wondercache->cookie ) {
@@ -415,7 +444,7 @@ if (
 	$is_cached && // We have cache
 	! $wondercache->genlock && // We have not obtained cache regeneration lock
 	(
-		! $has_expired || // Batcached page that hasn't expired
+		! $has_expired || // Wondercache page that hasn't expired
 		( $wondercache->do && $wondercache->use_stale ) // Regenerating it in another request and can use stale cache
 	)
 ) {
