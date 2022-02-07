@@ -114,7 +114,7 @@ class wondercache {
 
 
 	// Defined here because timer_stop() calls number_format_i18n()
-	function timer_stop( $display = 0, $precision = 3 ) {
+	function timer_stop( $display = 0, $precision = 4 ) {
 		global $timestart, $timeend;
 		$mtime     = microtime();
 		$mtime     = explode( ' ', $mtime );
@@ -160,7 +160,7 @@ class wondercache {
 		$this->cache = array(
 			'output'            => $output,
 			'time'              => isset( $_SERVER['REQUEST_TIME'] ) ? $_SERVER['REQUEST_TIME'] : time(),
-			'timer'             => $this->timer_stop( false, 3 ),
+			'timer'             => $this->timer_stop( false, 4 ),
 			'headers'           => array(),
 			'status_header'     => $this->status_header,
 			'redirect_status'   => $this->redirect_status,
@@ -272,7 +272,7 @@ HTML;
 	function add_debug_from_cache() {
 		$seconds_ago = time() - $this->cache['time'];
 		$generation  = $this->cache['timer'];
-		$serving     = $this->timer_stop( false, 3 );
+		$serving     = $this->timer_stop( false, 4 );
 		$expires     = $this->cache['max_age'] - time() + $this->cache['time'];
 		$html        = <<<HTML
 <!--
