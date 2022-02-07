@@ -337,6 +337,11 @@ if ( ( isset( $_SERVER['REQUEST_METHOD'] ) && ! in_array( $_SERVER['REQUEST_METH
 	return;
 }
 
+// Never wondercache a request with X-WP-Nonce header.
+if ( ! empty( $_SERVER['HTTP_X_WP_NONCE'] ) ) {
+	return;
+}
+
 // Never cache when cookies indicate a cache-exempt visitor.
 if ( is_array( $_COOKIE ) && ! empty( $_COOKIE ) ) {
 	foreach ( array_keys( $_COOKIE ) as $wondercache->cookie ) {
