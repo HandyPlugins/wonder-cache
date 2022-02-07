@@ -386,7 +386,8 @@ $wondercache->generate_keys();
 
 // Get the wondercache
 $wondercache->cache = wondercache_get( $wondercache->key );
-
+$is_cached = is_array( $wondercache->cache ) && isset( $wondercache->cache['time'] );
+$has_expired = $is_cached && time() > $wondercache->cache['time'] + $wondercache->cache['max_age'];
 
 if ( isset( $wondercache->cache['version'] ) && $wondercache->cache['version'] != $wondercache->url_version ) {
 	// Always refresh the cache if a newer version is available.
@@ -396,15 +397,11 @@ if ( isset( $wondercache->cache['version'] ) && $wondercache->cache['version'] !
 	$wondercache->do = true;
 } else {
 	// No wondercache item found, or ready to sample traffic again at the end of the wondercache life?
-	if ( ! is_array( $wondercache->cache ) || time() >= $wondercache->cache['time'] + $wondercache->max_age - $wondercache->seconds ) {
-
-		if ( time() >= $wondercache->cache['time'] + $wondercache->cache['max_age']
-		) {
+	if ( ! $is_cached || time() >= $wondercache->cache['time'] + $wondercache->max_age - $wondercache->seconds ) {
+		if ( $has_expired ) {
 			wondercache_delete( $wondercache->req_key );
-			$wondercache->do = true;
-		} else {
-			$wondercache->do = false;
 		}
+		$wondercache->do = true;
 	}
 }
 
@@ -414,15 +411,13 @@ if ( $wondercache->do ) {
 
 }
 
-if ( isset( $wondercache->cache['time'] )
-     && // We have cache
-     ! $wondercache->genlock
-     &&            // We have not obtained cache regeneration lock
-     (
-	     time() < $wondercache->cache['time'] + $wondercache->cache['max_age']
-	     || // Batcached page that hasn't expired ||
-	     ( $wondercache->do && $wondercache->use_stale )                          // Regenerating it in another request and can use stale cache
-     )
+if (
+	$is_cached && // We have cache
+	! $wondercache->genlock && // We have not obtained cache regeneration lock
+	(
+		! $has_expired || // Batcached page that hasn't expired
+		( $wondercache->do && $wondercache->use_stale ) // Regenerating it in another request and can use stale cache
+	)
 ) {
 	// Issue redirect if cached and enabled
 	if ( $wondercache->cache['redirect_status'] && $wondercache->cache['redirect_location'] && $wondercache->cache_redirects ) {
