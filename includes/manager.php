@@ -97,7 +97,7 @@ function wonder_cache_flush() {
 
 	\WonderCache\Utils\remove_directory( $directory );
 
-	$redirect_url = esc_url( add_query_arg( 'wonder-cache-flush', 'ok', wp_get_referer() ) );
+	$redirect_url = esc_url_raw( add_query_arg( 'wonder-cache-flush', 'ok', wp_get_referer() ) );
 
 	wp_safe_redirect( $redirect_url );
 	exit;
