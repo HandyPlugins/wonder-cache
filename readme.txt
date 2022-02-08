@@ -3,7 +3,7 @@ Contributors: m_uysl, handyplugins
 Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 5.8
+Tested up to: 5.9
 Stable tag: 0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,13 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.4 (Feb 8, 2022) =
+- Fix: Never cache a request with X-WP-Nonce header
+- Opt-in CORS GET request cache
+- Increase timer sensitivity in debug info
+- Small tweaks & refactoring
+- Tested with WP 5.9
 
 = 0.3 (Sep 2, 2021) =
 - Updated & improved coding standards
