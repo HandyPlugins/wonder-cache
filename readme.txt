@@ -3,10 +3,11 @@ Contributors: m_uysl, handyplugins
 Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.2
+Tested up to: 6.3
 Stable tag: 0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Donate link: https://handyplugins.co/donate/
 
 A simple yet powerful caching plugin. It powers and abilities include: superhuman strength and durability.
 
@@ -21,19 +22,27 @@ This reduces the demand on the web server CPU and the database. It also means so
 However this only applies to people who have not interacted with your web site before.
 Once they have logged in or left a comment they will always get fresh pages.
 
+If you like our Wonder Cache, then consider checking out our other projects:
+
+* <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
+* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
+* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress
+
+
 = Contributing & Bug Report =
 
 Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/wonder-cache).
 
 == Installation ==
 
-=== From within WordPress ===
+= From within WordPress =
 1. Visit 'Plugins > Add New'
 2. Search for 'Wonder Cache'
 3. Activate Wonder Cache from your Plugins page.
 4. That's all.
 
-=== Manually ===
+= Manually =
 1. Upload the `wonder-cache` folder to the `/wp-content/plugins/` directory
 2. Activate the Wonder Cache plugin through the 'Plugins' menu in WordPress
 3. That's all.
