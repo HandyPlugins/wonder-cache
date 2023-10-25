@@ -13,7 +13,7 @@
 //  X_X  DO NOT use any WordPress functions except is_admin() and is_multisite(). Fatal error.
 //  X_X  DO NOT include or require files from anywhere without consulting expensive professionals first. Fatal error.
 //  X_X  DO NOT use $wpdb, $blog_id, $current_user, etc. These have not been initialized.
-//  ^_^  DO understand how create_function works. This is how your code is used: create_function('', $function);
+//  ^_^  DO understand how anonymous functions works. This is how your code is used: eval( '$fun = function() { ' . $function . '; };' );
 //  ^_^  DO remember to return something. The return value determines the cache variant.
 function vary_cache_on_function( $function ) {
 	global $wondercache;
@@ -30,7 +30,7 @@ function vary_cache_on_function( $function ) {
 }
 
 
-
+#[AllowDynamicProperties]
 class wondercache {
 	// This is the base configuration. You can edit these variables or move them into your wp-config.php file.
 	public $max_age = 900; // Expire wondercache items aged this many seconds (zero to disable wondercache)
@@ -39,7 +39,7 @@ class wondercache {
 
 	public $unique = array(); // If you conditionally serve different content, put the variable values here.
 
-	public $vary = array(); // Array of functions for create_function. The return value is added to $unique above.
+	public $vary = array(); // Array of functions for anonymous function eval. The return value is added to $unique above.
 
 	public $headers = array(); // Add headers here as name=>value or name=>array(values). These will be sent with every response from the cache.
 
@@ -69,6 +69,29 @@ class wondercache {
 				$this->$k = $v;
 			}
 		}
+	}
+
+	function client_accepts_only_json() {
+		if ( ! isset( $_SERVER['HTTP_ACCEPT'] ) )
+			return false;
+
+		$is_json_only = false;
+
+		foreach ( explode( ',', $_SERVER['HTTP_ACCEPT'] ) as $mime_type ) {
+			if ( false !== $pos = strpos( $mime_type, ';' ) )
+				$mime_type = substr( $mime_type, 0, $pos );
+
+			$mime_type = trim( $mime_type );
+
+			if ( '/json' === substr( $mime_type, -5 ) || '+json' === substr( $mime_type, -5 ) ) {
+				$is_json_only = true;
+				continue;
+			}
+
+			return false;
+		}
+
+		return $is_json_only;
 	}
 
 	function is_cacheable_origin( $origin ) {
@@ -405,6 +428,12 @@ $wondercache->keys = array(
 if ( is_ssl() ) {
 	$wondercache->keys['ssl'] = true;
 }
+
+# Some plugins return html or json based on the Accept value for the same URL.
+if ( $wondercache->client_accepts_only_json() ) {
+	$wondercache->keys['json'] = true;
+}
+
 
 // Recreate the permalink from the URL
 $wondercache->permalink   = 'http://' . $wondercache->keys['host'] . $wondercache->keys['path'] . ( isset( $wondercache->keys['query']['p'] ) ? "?p=" . $wondercache->keys['query']['p'] : '' );
