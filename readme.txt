@@ -3,8 +3,8 @@ Contributors: m_uysl, handyplugins
 Tags: wonder, cache, speed, performance, load, server, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.3
-Stable tag: 0.4
+Tested up to: 6.4
+Stable tag: 0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -24,10 +24,11 @@ Once they have logged in or left a comment they will always get fresh pages.
 
 If you like our Wonder Cache, then consider checking out our other projects:
 
+* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score.
 * <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
 * <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
 * <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
-* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress
+* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress.
 
 
 = Contributing & Bug Report =
@@ -85,6 +86,11 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.5 (Oct 25, 2023) =
+- Vary the cache when only JSON is accepted.
+- PHP 8.2: Enable AllowDynamicProperties in wondercache class.
+- Tested with WordPress 6.4.
 
 = 0.4 (Feb 8, 2022) =
 - Fix: Never cache a request with X-WP-Nonce header

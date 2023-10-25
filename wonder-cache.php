@@ -7,7 +7,7 @@
  * Author URI:      https://handyplugins.co
  * Text Domain:     wonder-cache
  * Domain Path:     /languages
- * Version:         0.4
+ * Version:         0.5
  * Network:         true
  * Requires at least: 4.7
  * Requires PHP:      5.6
