@@ -1,6 +1,6 @@
 === Wonder Cache ===
 Contributors: m_uysl, handyplugins
-Tags: wonder, cache, speed, performance, load, server, batcache
+Tags: wondercache, cache, speed, performance, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.6
