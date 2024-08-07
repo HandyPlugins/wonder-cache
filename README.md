@@ -3,10 +3,10 @@ Wonder Cache
 
 A simple yet powerful caching plugin. It powers and abilities include: superhuman strength and durability.
 
-## Contributing & Bug Report  
+## Contributing & Bug Report
 Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/wonder-cache).
 
-## Setup  
+## Setup
 
 ### From within WordPress ###
 1. Visit 'Plugins > Add New'
@@ -18,6 +18,19 @@ Bug reports and pull requests are welcome on [Github](https://github.com/HandyPl
 1. Upload the `wonder-cache` folder to the `/wp-content/plugins/` directory
 2. Activate the Wonder Cache plugin through the 'Plugins' menu in WordPress
 3. That's all.
+
+
+### Our Other Projects ###
+
+If you like our Wonder Cache, then consider checking out our other projects:
+
+* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score.
+* <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
+* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
+* <a href="https://handyplugins.co/paddlepress-pro/" rel="friend">PaddlePress PRO</a> – Paddle Plugin for WordPress.
+* <a href="https://handyplugins.co/wp-accessibility-toolkit/" rel="friend">WP Accessibility Toolkit</a> – A collection of tools to help you make your WordPress more accessible.
+
 
 
 ```
