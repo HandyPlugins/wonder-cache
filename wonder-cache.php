@@ -91,6 +91,10 @@ function activate() {
  * Deactivation routine
  */
 function deactivate() {
+	if ( ! defined( 'WONDER_CACHE_CACHING_DIR' ) ) {
+		define( 'WONDER_CACHE_CACHING_DIR', WP_CONTENT_DIR . '/cache/wonder-cache/' );
+	}
+
 	\WonderCache\Utils\toggle_caching( false );
 	\WonderCache\Utils\remove_directory( WONDER_CACHE_CACHING_DIR );
 	\WonderCache\Utils\remove_advanced_cache_file();
