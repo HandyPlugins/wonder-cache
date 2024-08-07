@@ -4,7 +4,7 @@ Tags: wondercache, cache, speed, performance, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 0.5
+Stable tag: 0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -87,6 +87,10 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.6 (August 07, 2024) =
+- Make sure deactivation doesn't cause fatal error when advanced-cache.php overwritten by other plugins.
+- Tested with WordPress 6.6
 
 = 0.5 (Oct 25, 2023) =
 - Vary the cache when only JSON is accepted.
