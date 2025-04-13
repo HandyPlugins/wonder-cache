@@ -56,12 +56,25 @@ class wondercache {
 
 	public $cancel = false; // Change this to cancel the output buffer. Use wondercache_cancel();
 
+	public $cookie = '';
 	public $noskip_cookies = array( 'wordpress_test_cookie' ); // Names of cookies - if they exist and the cache would normally be bypassed, don't bypass it
 	public $cacheable_origin_hostnames = array(); // A whitelist of HTTP origin `<host>:<port>` (or just `<host>`) names that are allowed as cache variations.
 
 	public $query = '';
 	public $genlock = false;
 	public $do = false;
+
+	//Declare used variables for PHP 8.2+
+	public $cache = array();
+	public $key = '';
+	public $keys = array();
+	public $permalink = '';
+	public $pos = 0;
+	public $req_key = '';
+	public $requests = 0;
+	public $status_code = null;
+	public $url_key = '';
+	public $url_version = null;
 
 	function __construct( $settings ) {
 		if ( is_array( $settings ) ) {
