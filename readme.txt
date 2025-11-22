@@ -3,8 +3,8 @@ Contributors: m_uysl, handyplugins
 Tags: wondercache, cache, speed, performance, batcache
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.8
-Stable tag: 0.7
+Tested up to: 6.9
+Stable tag: 0.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -87,6 +87,9 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.7.1 (November 22, 2025) =
+- Tested with WordPress 6.9
 
 = 0.7 (April 13, 2025) =
 - PHP 8.2 compatibility: Declare used properties
