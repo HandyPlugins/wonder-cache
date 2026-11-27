@@ -43,6 +43,7 @@ class wondercache {
 
 	public $headers = array(); // Add headers here as name=>value or name=>array(values). These will be sent with every response from the cache.
 
+	public $status_header = false;
 	public $cache_redirects = false; // Set true to enable redirect caching.
 	public $redirect_status = false; // This is set to the response code during a redirect.
 	public $redirect_location = false; // This is set to the redirect location.
