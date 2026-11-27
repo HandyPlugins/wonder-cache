@@ -523,6 +523,11 @@ if ( is_array( $_COOKIE ) && ! empty( $_COOKIE ) ) {
 }
 
 
+// Disabled
+if ( $wondercache->max_age < 1 ) {
+	return;
+}
+
 // Necessary to prevent clients using cached version after login cookies set. If this is a problem, comment it out and remove all Last-Modified headers.
 header( 'Vary: Cookie', false );
 
