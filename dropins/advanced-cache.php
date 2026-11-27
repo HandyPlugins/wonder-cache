@@ -60,6 +60,7 @@ class wondercache {
 	public $noskip_cookies = array( 'wordpress_test_cookie' ); // Names of cookies - if they exist and the cache would normally be bypassed, don't bypass it
 	public $cacheable_origin_hostnames = array(); // A whitelist of HTTP origin `<host>:<port>` (or just `<host>`) names that are allowed as cache variations.
 
+	public $origin = null; // Current Origin header.
 	public $query = '';
 	public $genlock = false;
 	public $do = false;
@@ -521,6 +522,10 @@ $wondercache->keys = array(
 	'query'  => $wondercache->query,
 	'extra'  => $wondercache->unique
 );
+
+if ( isset( $wondercache->origin ) ) {
+	$wondercache->keys['origin'] = $wondercache->origin;
+}
 
 if ( is_ssl() ) {
 	$wondercache->keys['ssl'] = true;
