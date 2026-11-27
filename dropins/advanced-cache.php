@@ -107,6 +107,18 @@ class wondercache {
 		return $is_json_only;
 	}
 
+	// Whether the request carries HTTP credentials. The cache key has no user in it.
+	function has_http_auth() {
+		// Servers expose the Authorization header under different names.
+		foreach ( array( 'HTTP_AUTHORIZATION', 'REDIRECT_HTTP_AUTHORIZATION', 'PHP_AUTH_USER', 'PHP_AUTH_DIGEST' ) as $key ) {
+			if ( isset( $_SERVER[ $key ] ) && '' !== $_SERVER[ $key ] ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	function is_cacheable_origin( $origin ) {
 		$parsed_origin = parse_url( $origin );
 
@@ -393,6 +405,11 @@ if ( ( isset( $_SERVER['REQUEST_METHOD'] ) && ! in_array( $_SERVER['REQUEST_METH
 
 // Never wondercache a request with X-WP-Nonce header.
 if ( ! empty( $_SERVER['HTTP_X_WP_NONCE'] ) ) {
+	return;
+}
+
+// Never wondercache a request with HTTP credentials.
+if ( $wondercache->has_http_auth() ) {
 	return;
 }
 
