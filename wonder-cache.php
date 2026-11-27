@@ -7,10 +7,11 @@
  * Author URI:      https://handyplugins.co
  * Text Domain:     wonder-cache
  * Domain Path:     /languages
- * Version:         0.7.2
+ * Version:         0.8
  * Network:         true
  * Requires at least: 4.7
- * Requires PHP:      5.6
+ * Requires PHP:      7.4
+ * License:           GPL v2 or later
  *
  * @package         WonderCache
  */

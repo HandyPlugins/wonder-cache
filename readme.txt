@@ -2,9 +2,9 @@
 Contributors: m_uysl, handyplugins
 Tags: wondercache, cache, speed, performance, batcache
 Requires at least: 4.7
-Requires PHP: 5.6
-Tested up to: 7.1
-Stable tag: 0.7.2
+Requires PHP: 7.4
+Tested up to: 7.2
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -89,6 +89,18 @@ There is always vice/versa when you bring a new tool or adding complexity.
 
 
 == Changelog ==
+
+= 0.8 (November 27, 2026) =
+- Security: Never cache requests that carry HTTP credentials (Authorization header).
+- Fix: Cache purge on post update didn't invalidate cached pages.
+- Fix: vary_cache_on_function() variants weren't applied.
+- Fix: Atomic cache regeneration lock to prevent stampedes.
+- Vary the cache on ActivityPub Accept quality.
+- Add allowed Origin to the cache key.
+- Add wondercache_cancel() and ignored_query_args support.
+- Fix: Don't mangle wp-config.php line endings and blank lines when toggling WP_CACHE.
+- PHP 8.5 compatibility.
+- Tested with WordPress 7.2
 
 = 0.7.2 (April 16, 2026) =
 - Tested with WordPress 7.0
