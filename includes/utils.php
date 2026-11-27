@@ -114,7 +114,9 @@ function toggle_caching( $status ) {
 	if ( empty( $config_file_string ) ) {
 		return false;
 	}
-	$config_file = preg_split( "#(\n|\r)#", $config_file_string );
+	// Keep the file's own line endings. Older versions joined lines with "\n\r", treat that as one line break so such files get repaired.
+	$eol         = false !== strpos( $config_file_string, "\r\n" ) ? "\r\n" : "\n";
+	$config_file = preg_split( "#\n\r|\r\n|\n|\r#", $config_file_string );
 	$line_key    = false;
 	foreach ( $config_file as $key => $line ) {
 		if ( ! preg_match( '/^\s*define\(\s*(\'|")([A-Z_]+)(\'|")(.*)/', $line, $match ) ) {
@@ -127,15 +129,22 @@ function toggle_caching( $status ) {
 	if ( false !== $line_key ) {
 		unset( $config_file[ $line_key ] );
 	}
-	$status_string = ( $status ) ? 'true' : 'false';
-	array_shift( $config_file );
-	array_unshift( $config_file, '<?php', "define( 'WP_CACHE', $status_string ); // added by wondercache" );
+	$config_file = array_values( $config_file );
+
+	// Add the constant right after the opening tag, leaving that line as it is.
+	$open_tag_key = false;
 	foreach ( $config_file as $key => $line ) {
-		if ( '' === $line ) {
-			unset( $config_file[ $key ] );
+		if ( false !== strpos( $line, '<?php' ) ) {
+			$open_tag_key = $key;
+			break;
 		}
 	}
-	if ( ! file_put_contents( $config_path, implode( "\n\r", $config_file ) ) ) {
+	if ( false === $open_tag_key ) {
+		return false;
+	}
+	$status_string = ( $status ) ? 'true' : 'false';
+	array_splice( $config_file, $open_tag_key + 1, 0, "define( 'WP_CACHE', $status_string ); // added by wondercache" );
+	if ( ! file_put_contents( $config_path, implode( $eol, $config_file ) ) ) {
 		return false;
 	}
 
