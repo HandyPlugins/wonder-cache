@@ -640,7 +640,7 @@ if (
 
 	// Respect ETags served with feeds.
 	$three04 = false;
-	if ( isset( $SERVER['HTTP_IF_NONE_MATCH'] ) && isset( $wondercache->cache['headers']['ETag'][0] ) && $_SERVER['HTTP_IF_NONE_MATCH'] == $wondercache->cache['headers']['ETag'][0] ) {
+	if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) && isset( $wondercache->cache['headers']['ETag'][0] ) && $_SERVER['HTTP_IF_NONE_MATCH'] == $wondercache->cache['headers']['ETag'][0] ) {
 		$three04 = true;
 	} // Respect If-Modified-Since.
 	elseif ( $wondercache->cache_control && isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) ) {
