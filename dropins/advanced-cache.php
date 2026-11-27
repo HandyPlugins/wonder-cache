@@ -575,8 +575,8 @@ if ( isset( $wondercache->cache['version'] ) && $wondercache->cache['version'] !
 	// Always refresh the cache if a newer version is available.
 	$wondercache->do = true;
 } else if ( $wondercache->seconds < 1 ) {
-	// Are we only caching frequently-requested pages?
-	$wondercache->do = true;
+	// Cache is empty or has expired and we're caching all requests.
+	$wondercache->do = ! $is_cached || $has_expired;
 } else {
 	// No wondercache item found, or ready to sample traffic again at the end of the wondercache life?
 	if ( ! $is_cached || time() >= $wondercache->cache['time'] + $wondercache->max_age - $wondercache->seconds ) {
