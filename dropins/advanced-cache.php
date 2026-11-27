@@ -70,6 +70,7 @@ class wondercache {
 
 	public $origin = null; // Current Origin header.
 	public $query = '';
+	public $ignored_query_args = array(); // Query args that never make a page unique (e.g. utm_source). They are dropped from the cache key.
 	public $genlock = false;
 	public $do = false;
 
@@ -442,6 +443,17 @@ HTML;
 		}
 		$this->cache['output'] .= "\n$debug_html";
 	}
+
+	function set_query( $query_string ) {
+		parse_str( $query_string, $this->query );
+
+		foreach ( $this->ignored_query_args as $arg ) {
+			unset( $this->query[ $arg ] );
+		}
+
+		// Normalize query parameters for better cache hits.
+		ksort( $this->query );
+	}
 }
 
 
@@ -516,10 +528,7 @@ header( 'Vary: Cookie', false );
 
 // Things that define a unique page.
 if ( isset( $_SERVER['QUERY_STRING'] ) ) {
-	parse_str( $_SERVER['QUERY_STRING'], $wondercache->query );
-
-	// Normalize query paramaters for better cache hits.
-	ksort( $wondercache->query );
+	$wondercache->set_query( $_SERVER['QUERY_STRING'] );
 }
 
 
