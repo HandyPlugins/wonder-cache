@@ -3,6 +3,13 @@
  * This dropin forked from Batcache – https://github.com/Automattic/batcache
  */
 
+function wondercache_cancel() {
+	global $wondercache;
+
+	if ( is_object( $wondercache ) ) {
+		$wondercache->cancel = true;
+	}
+}
 
 // Variants can be set by functions which use early-set globals like $_SERVER to run simple tests.
 // Functions defined in WordPress, plugins, and themes are not available and MUST NOT be used.
