@@ -586,7 +586,7 @@ if ( isset( $wondercache->cache['version'] ) && $wondercache->cache['version'] !
 
 // Obtain cache generation lock
 if ( $wondercache->do ) {
-	$wondercache->genlock = wondercache_set( "{$wondercache->url_key}_genlock", 1 );
+	$wondercache->genlock = wondercache_add( "{$wondercache->url_key}_genlock", 1, 10 );
 
 }
 
@@ -728,6 +728,34 @@ function wondercache_set( $file, $content ) {
 	$path = wondercache_get_cache_path( $file );
 
 	return file_put_contents( $path, $content );
+}
+
+/**
+ * save cached content only if it doesn't exist yet (atomic, used for locks)
+ * @param $file
+ * @param $content
+ * @param int $ttl An existing file older than this many seconds is treated as expired. Zero never expires.
+ *
+ * @return bool
+ */
+function wondercache_add( $file, $content, $ttl = 0 ) {
+	$path = wondercache_get_cache_path( $file );
+
+	$mtime = @filemtime( $path );
+	if ( $ttl > 0 && false !== $mtime && $mtime + $ttl < time() ) {
+		@unlink( $path );
+	}
+
+	// The 'x' mode fails when the file exists, so only one request can create it.
+	$handle = @fopen( $path, 'x' );
+	if ( ! $handle ) {
+		return false;
+	}
+
+	fwrite( $handle, '<?php exit; ?>' . PHP_EOL . serialize( $content ) );
+	fclose( $handle );
+
+	return true;
 }
 
 /**
