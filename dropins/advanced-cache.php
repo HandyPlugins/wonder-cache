@@ -381,11 +381,8 @@ class wondercache {
 		if ( is_array( $dimensions ) ) {
 			ksort( $dimensions );
 			foreach ( $dimensions as $key => $function ) {
-				$fun = function () use ( $function ) {
-					return $function;
-				};
-
-				$value              = $fun();
+				eval( '$fun = function() { ' . $function . '; };' ); // phpcs:ignore Squiz.PHP.Eval.Discouraged
+				$value              = call_user_func( $fun );
 				$this->keys[ $key ] = $value;
 			}
 		}
