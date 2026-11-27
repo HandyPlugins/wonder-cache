@@ -47,7 +47,8 @@ function clean_post_cache( $post_id, $post ) {
  */
 function clear_url( $url ) {
 
-	if ( empty( $url ) ) {
+	// The drop-in might be missing or replaced by another plugin.
+	if ( empty( $url ) || ! function_exists( 'wondercache_delete' ) ) {
 		return false;
 	}
 	if ( 0 === strpos( $url, 'https://' ) ) {
