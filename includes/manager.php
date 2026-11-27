@@ -43,12 +43,12 @@ function clean_post_cache( $post_id, $post ) {
  *
  * @param string $url The URL that will be cleared.
  *
- * @return bool Whether deletion succeed or not
+ * @return int|false The new URL version, false on failure
  */
 function clear_url( $url ) {
 
 	// The drop-in might be missing or replaced by another plugin.
-	if ( empty( $url ) || ! function_exists( 'wondercache_delete' ) ) {
+	if ( empty( $url ) || ! function_exists( 'wondercache_incr' ) ) {
 		return false;
 	}
 	if ( 0 === strpos( $url, 'https://' ) ) {
@@ -59,7 +59,8 @@ function clear_url( $url ) {
 	}
 	$url_key = md5( $url );
 
-	return wondercache_delete( $url_key );
+	// Cached pages store the URL version they were built with, a newer version makes the drop-in regenerate them.
+	return wondercache_incr( "{$url_key}_version" );
 }
 
 /**

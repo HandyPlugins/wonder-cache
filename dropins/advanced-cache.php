@@ -759,6 +759,19 @@ function wondercache_add( $file, $content, $ttl = 0 ) {
 }
 
 /**
+ * increment a numeric cached value
+ * @param $file
+ *
+ * @return int The new value
+ */
+function wondercache_incr( $file ) {
+	$value = (int) wondercache_get( $file ) + 1;
+	wondercache_set( $file, $value );
+
+	return $value;
+}
+
+/**
  * simply delete cached file
  * @param $file
  *
